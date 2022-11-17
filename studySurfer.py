@@ -1,10 +1,8 @@
-from classes.audio_analysis import getAudio, analyzeAudio
+from classes.audio_analysis import getAudio, analyzeAudio, genSRT
 from moviepy.editor import VideoFileClip, AudioFileClip, TextClip, CompositeVideoClip, concatenate
-
+from moviepy.video.tools.subtitles import SubtitlesClip
 def main():
-    getAudio()
-    subtitles = analyzeAudio()
-
+    genSRT(analyzeAudio())
     gameplay = VideoFileClip('resources/ssgameplay.mp4')
     TTSAudio = AudioFileClip('resources/audio.wav')
 
@@ -27,14 +25,11 @@ def main():
     else: 
         final_clip = gameplay.subclip(0,TTSAudio.duration)
     final_clip.audio = TTSAudio #Adds audio to video
-
-
-    subs = [final_clip]
-    for i in range(0,len(subtitles)):
-        txt_clip = TextClip(str(subtitles[i][2]), font='Arial-Bold', color = 'white', stroke_color = 'black', stroke_width=1.5, method='caption',fontsize=40,size=[1280,900]).set_start(float(subtitles[i][0])).set_duration(float(subtitles[i][1])-float(subtitles[i][0]))
-        subs.append(txt_clip)
-
-    final_clip = CompositeVideoClip(subs)
+    
+    #Add subtitles
+    generator = lambda txt: TextClip(txt, font='Arial-Bold', color = 'white', stroke_color = 'black', stroke_width=1.5, method='caption',fontsize=40,size=[1280,900])
+    subtitles = SubtitlesClip("resources/subtitles.srt", generator)
+    final_clip = CompositeVideoClip([final_clip, subtitles])
     final_clip.write_videofile("final.mp4")
 
 if __name__ == "__main__":
