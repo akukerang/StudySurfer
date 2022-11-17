@@ -1,8 +1,9 @@
-from classes.audio_analysis import getAudio, analyzeAudio, genSRT
+from classes.audio_analysis import audio_analysis, genSRT
 from moviepy.editor import VideoFileClip, AudioFileClip, TextClip, CompositeVideoClip, concatenate
 from moviepy.video.tools.subtitles import SubtitlesClip
 def main():
-    genSRT(analyzeAudio())
+    a = audio_analysis()
+    genSRT(a.analyzeAudio())
     gameplay = VideoFileClip('resources/ssgameplay.mp4')
     TTSAudio = AudioFileClip('resources/audio.wav')
 
