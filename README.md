@@ -19,7 +19,7 @@ A study tool that takes advantage of low attention span, by playing eye catching
 1. Enter the desired text to be spoken into `resources/script.txt`.
     - For best use cases, use paragraphs with simple english where the only puntutations are periods.
     - The captions can get out of time, due to certain punctuations like (). I need to fix this, but for now if there are issues just edit the paragraph and remove any of these possible punctuations. 
-2. Open a command prompt and go to the StudySurfer folder, and run this command <br/>
+2. Open a command prompt, go to the StudySurfer folder, and run this command <br/>
 `python studySurfer.py -m {TYPE}`
     - These are the possible types of videos:
         - `csgo` - CS:GO Surf
